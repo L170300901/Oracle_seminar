@@ -1,0 +1,163 @@
+-- 30번 부서의 사원의 사원번호와, 이름 , 부서명을 출력하시오. SCOTT/ EMP테이블
+
+EMP테이블
+SELECT E.EMPNO
+         ,E.ENAME
+            ,D.DNAME
+FROM DEPT D
+      ,(SELECT *
+      FROM EMP
+      WHERE DEPTNO=30
+        ) E
+WHERE D.DEPTNO=E.DEPTNO;
+
+
+
+
+
+--BLAKE와 같은 부서의 직원의 이름과 입사일을 출력하세요. SCOTT/ EMP테이블
+
+SELECT E.ENAME, E.HIREDATE
+FROM EMP E
+WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE UPPER(ENAME)=UPPER('BLAKE'));
+
+
+
+
+--  KING이 직장상사인 사람의 사원번호와 이름, 부서명을 출력하세요. SCOTT/ EMP테이블
+
+SELECT E.EMPNO, E.ENAME, D.DNAME
+FROM EMP E
+      , DEPT D
+        , (SELECT EMPNO FROM EMP WHERE ENAME='KING') M
+WHERE E.MGR= M.EMPNO
+AND E.DEPTNO=D.DEPTNO;
+
+
+
+
+
+
+-- 각 부서별 평균 급여액을 구하고 부서별 평균 급여액 보다 급여를 많이 받는 사원의 사원번호
+-- 이름, 급여, 부서번호, 부서번호, 각 부서의 평균급여액을 구하시오.
+
+SELECT E.EMPNO,E.ENAME, E.SAL, E.DEPTNO, D.DNAME, M.AV
+FROM EMP E,
+(SELECT DEPTNO, AVG(SAL) AV FROM EMP GROUP BY DEPTNO) M, DEPT D
+WHERE  E.DEPTNO=D.DEPTNO
+AND E.DEPTNO=M.DEPTNO
+AND E.SAL>=M.AV
+ORDER BY D.DNAME ASC;
+
+
+
+
+
+--각 부서별로 최고급여를 받는 직원의 부서명, 부서 아이디, 사원의 이름, SAL를 출력하시오.
+
+SELECT E.ENAME, E.SAL, E.DEPTNO, D.DNAME
+FROM EMP E, DEPT D,
+(SELECT DEPTNO, MAX(SAL) MX FROM EMP
+GROUP BY DEPTNO) M
+WHERE E.DEPTNO=D.DEPTNO
+AND E.DEPTNO=M.DEPTNO
+AND E.SAL = M.MX
+ORDER BY DEPTNO ;
+
+
+SELECT E.ENAME, E.SAL, E.DEPTNO, D.DNAME
+FROM EMP E, DEPT D
+WHERE E.DEPTNO=D.DEPTNO
+AND E.SAL IN (SELECT MAX(SAL) MX FROM EMP
+            GROUP BY DEPTNO)
+ORDER BY DEPTNO;
+
+
+
+
+
+-- 직속상사 보다 월급을 많이 받는 사원을 구하세요.
+
+SELECT E.EMPNO, E.ENAME, M.EMPNO, M.ENAME, E.SAL EMPSAL, M.SAL MGRSAL ,(M.SAL-E.SAL) GAB
+FROM EMP E, EMP M
+WHERE E.MGR=M.EMPNO
+AND E.SAL>M.SAL;
+
+
+
+
+
+-- 직속 상사와의 월급 차이가 가장 큰 사람과 같은 부서의 사원의
+-- 사원번호, 이름, 부서명, 월급, 직장상사의 이름,직장상사의 급여, 직장상사와의 월급 차이를 출력해주세요.
+
+SELECT P.EMPNO, P.ENAME, D.DNAME, P.SAL, P.MNAME, P.MSAL, P.GAB
+FROM
+      (SELECT A.EMPNO, A.ENAME, A.SAL, S.ENAME MNAME, S.SAL MSAL, A.DEPTNO, (S.SAL-A.SAL) GAB
+         FROM EMP A, EMP S
+            WHERE A.MGR=S.EMPNO
+            ) P
+            ,DEPT D
+            ,(SELECT *
+               FROM
+            (SELECT MAX(M.SAL-E.SAL) GAB , E.DEPTNO
+            FROM EMP E, EMP M
+            WHERE E.MGR=M.EMPNO
+            AND (M.SAL-E.SAL)>0
+            GROUP BY  E.DEPTNO
+            ORDER BY  MAX(M.SAL-E.SAL) DESC)
+            WHERE ROWNUM =1
+            ) Q
+WHERE P.DEPTNO=D.DEPTNO
+AND P.DEPTNO=Q.DEPTNO;
+
+
+
+
+
+
+ -- 사원수가 2명이 넘는 부서의 부서명, 근무지역을 출력하세요.
+
+ SELECT E.DEPTNO, D.DNAME, D.LOC
+ FROM DEPT D,
+          (
+            SELECT DEPTNO, COUNT(*) FROM EMP
+            GROUP BY DEPTNO
+            HAVING COUNT(*)>2
+            ) E
+ WHERE D.DEPTNO=E.DEPTNO;
+
+
+
+
+
+-- ADAMS보다 급여가 높고 직종이 SALESMAN인 사원의 이름과 급여를 출력하세요.
+
+SELECT M.ENAME,M.SAL
+FROM EMP M,
+      (
+        SELECT E.SAL
+        FROM EMP E
+        WHERE UPPER(E.ENAME)=UPPER('ADAMS')
+        ) F
+WHERE M.SAL>F.SAL
+AND UPPER(M.JOB)=UPPER('SALESMAN');
+
+
+
+
+
+--직종이 'CLERK'인 사원이 적어도 2명 이상 속한 부서 이름을 출력하세요.
+
+SELECT E.DEPTNO, D.DNAME
+FROM DEPT D,
+      (
+        SELECT DEPTNO, COUNT(*)
+        FROM EMP
+        WHERE JOB='CLERK'
+        GROUP BY DEPTNO
+        HAVING COUNT(*)>=2
+        ) E
+WHERE E.DEPTNO=D.DEPTNO;
+
+
+

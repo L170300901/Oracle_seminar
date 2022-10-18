@@ -1,0 +1,473 @@
+-- 1. SMITH 사원의 사원번호, 이름, 직속상관 이름을 가져온다.
+SELECT
+    empno,
+    ename,
+    (
+        SELECT
+            ename
+        FROM
+            emp
+        WHERE
+            e.mgr = empno
+    )
+FROM
+    emp e
+WHERE
+    ename = 'SMITH'
+
+=====
+
+SELECT
+    e1.empno,
+    e1.ename,
+    e2.ename mgrname
+FROM
+    emp  e1,
+    emp  e2
+WHERE
+        e1.mgr = e2.empno
+    AND e1.ename = 'SMITH'
+    
+
+-- 2. FORD 사원 밑에서 일하는 사원들의 사원번호, 이름, 직무를 가져온다.
+SELECT
+    empno,
+    ename,
+    job
+FROM
+    emp
+WHERE
+    mgr = (
+        SELECT
+            empno
+        FROM
+            emp
+        WHERE
+            ename = 'FORD'
+    )
+
+
+
+-- 3. SMITH 사원의 직속상관과 동일한 직무를 가지고 있는 사원들의 사원번호, 이름, 직무를 가져온다.
+SELECT
+    empno,
+    ename,
+    job
+FROM
+    emp 
+WHERE
+    job = (
+        SELECT
+            job
+        FROM
+            emp 
+        WHERE
+            empno = (
+                SELECT
+                    mgr
+                FROM
+                    emp 
+                WHERE
+                    ename = 'SMITH'
+            )
+    )
+
+-- 4. 각 사원의 이름, 사원번호, 직장상사(직속상사) 이름을 가져온다. 단 직속상관이 없는 사원도 가져온다.
+SELECT
+    ename,
+    empno,
+    (
+        SELECT
+            ename
+        FROM
+            emp
+        WHERE
+            e.mgr = empno
+    )
+FROM
+    emp e
+
+
+-- 5. 모든 부서의 소속 사원의 근무부서명, 사원번호, 사원이름, 급여를 가져온다.
+SELECT
+    (
+        SELECT
+            d.dname
+        FROM
+            dept d
+        WHERE
+            d.deptno = e.deptno
+    ) AS dname,
+    empno,
+    ename,
+    sal
+FROM
+    emp e
+
+-- 6. SCOTT 사원이 근무하고 있는 부서의 이름을 가져온다.
+SELECT
+    (
+        SELECT
+            dname
+        FROM
+            dept d
+        WHERE
+            e.deptno = d.deptno
+    ) dname
+FROM
+    emp e
+WHERE
+    ename = 'SCOTT';
+
+-- 7. SMITH와 같은 부서에 근무하고 있는 사원들의 사원번호, 이름, 연봉, 부서이름을 가져온다.
+SELECT
+    empno,
+    ename,
+    sal * 12,
+    (
+        SELECT
+            dname
+        FROM
+            dept d
+        WHERE
+            d.deptno = e.deptno
+    ) dname
+FROM
+    emp e
+WHERE
+    deptno = (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            ename = 'SMITH'
+    )
+
+-- 8. MARTIN과 같은 직무를 가지고 있는 사원들의 사원번호, 이름, 직무를 가져온다.
+SELECT
+    empno,
+    ename,
+    job
+FROM
+    emp 
+WHERE
+    job = (
+        SELECT
+            job
+        FROM
+            emp
+        WHERE
+            ename = 'MARTIN'
+    )
+
+-- 9. ALLEN과 같은 직속상관을 가진 사원들의 사원번호, 이름, 직속상관이름을 가져온다.
+SELECT
+    empno,
+    ename,
+    (
+        SELECT
+            ename
+        FROM
+            emp
+        WHERE
+            e1.mgr = empno
+    )  mgrname
+FROM
+    emp e1
+WHERE
+    mgr = (
+        SELECT
+            mgr
+        FROM
+            emp
+        WHERE
+            ename = 'ALLEN'
+    )
+
+-- 10. WARD와 같은 부서에 근무하고 있는 사원들의 사원번호, 이름, 부서번호를 가져온다.
+SELECT
+    empno, ename, deptno
+FROM
+    emp
+WHERE
+    deptno = (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            ename = 'WARD'
+    )
+
+
+-- 11. SALESMAN의 평균 급여보다 많이 받는 사원들의 사원번호, 이름, 급여를 가져온다.
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp
+WHERE
+    sal > (
+        SELECT
+            AVG(sal)
+        FROM
+            emp
+        WHERE
+            job = 'SALESMAN'
+    )
+             
+-- 12. DALLAS 지역에 근무하는 사원들의 평균 급여를 가져온다.
+SELECT
+    (
+        SELECT
+            AVG(sal)
+        FROM
+            emp
+        WHERE
+            deptno = d.deptno
+    ) avg
+FROM
+    dept d
+WHERE
+    loc = 'DALLAS'
+
+=====
+
+SELECT
+    AVG(sal)
+FROM
+    emp   e,
+    dept  d
+WHERE
+        e.deptno = d.deptno
+    AND loc = 'DALLAS'
+
+-- 13. SALES 부서에 근무하는 사원들의 사원번호, 이름, 근무지역을 가져온다.
+SELECT
+    empno,
+    ename,
+    (
+        SELECT
+            loc
+        FROM
+            dept d
+        WHERE
+            d.deptno = e.deptno
+    )
+FROM
+    emp e
+WHERE
+    deptno = (
+        SELECT
+            deptno
+        FROM
+            dept
+        WHERE
+            dname = 'SALES'
+    )
+
+=====
+
+SELECT
+    empno,
+    ename,
+    loc
+FROM
+    emp   e,
+    dept  d
+WHERE
+        e.deptno = d.deptno
+    AND dname = 'SALES'
+
+-- 14. CHICAGO 지역에 근무하는 사원들 중 BLAKE이 직속상관인 사원들의 사원번호, 이름, 직무를 가져온다.	
+SELECT
+    empno,
+    ename,
+    job
+FROM
+    emp   e,
+    dept  d
+WHERE
+        e.deptno = d.deptno
+    AND loc = 'CHICAGO'
+    AND mgr = (
+        SELECT
+            empno
+        FROM
+            emp
+        WHERE
+            ename = 'BLAKE'
+    )
+
+-- 15. 3000 이상의 급여를 받는 사원들과 같은 부서에 근무하고 있는 사원의 사원번호, 이름, 급여를 가져온다
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp
+WHERE
+    deptno = ANY (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            sal >= 3000
+        GROUP BY
+            deptno
+    )
+
+=====
+
+SELECT
+    e.empno,
+    e.ename,
+    e.sal
+FROM
+    emp  e,
+    (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            sal >= 3000
+        GROUP BY
+            deptno
+    )    d
+WHERE
+    e.deptno = d.deptno;
+
+-- 16. 직무가 CLERK인 사원과 동일한 부서에 근무하고 있는 사원들의 사원번호, 이름, 입사일 가져온다.
+SELECT
+    empno,
+    ename,
+    hiredate
+FROM
+    emp
+WHERE
+    deptno = ANY (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            job = 'CLERK'
+        GROUP BY
+            deptno
+    )
+
+
+-- 17. KING을 직속상관으로 가지고 있는 사원들이 근무하고 있는 근무 부서명, 지역을 가지고온다.
+SELECT
+    dname,
+    loc
+FROM
+    emp   e,
+    dept  d
+WHERE
+        e.deptno = d.deptno
+    AND mgr = (
+        SELECT
+            empno
+        FROM
+            emp
+        WHERE
+            ename = 'KING'
+    )
+
+-- 18. CLERK들의 직속상관의 사원번호, 이름, 급여를 가져온다.
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp
+WHERE
+    empno = ANY (
+        SELECT
+            mgr
+        FROM
+            emp
+        WHERE
+            job = 'CLERK'
+    )
+
+-- 19. 각 부서별 급여 평균보다 더 많이 받는 사원의 사원번호, 이름, 급여를 가져온다.
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp  e,
+    (
+        SELECT
+            deptno,
+            AVG(sal) avg
+        FROM
+            emp
+        GROUP BY
+            deptno
+    )    d
+WHERE
+        e.sal > avg
+    AND e.deptno = d.deptno;
+                
+-- 20. 각 부서별 급여 최저치보다 더 많이 받는 사원들의 사원번호, 이름, 급여를 가져온다.
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp  e,
+    (
+        SELECT
+            deptno,
+            min(sal) min
+        FROM
+            emp
+        GROUP BY
+            deptno
+    )    d
+WHERE
+        e.sal > min
+    AND e.deptno = d.deptno;
+                
+-- 21. SALESMAN 보다 급여를 적게 받는 사원들의 사원번호, 이름, 급여를 가져온다.
+SELECT
+    empno,
+    ename,
+    sal
+FROM
+    emp
+WHERE
+    sal < (
+        SELECT
+            MIN(sal)
+        FROM
+            emp
+        WHERE
+            job = 'SALESMAN'
+    )
+
+-- 23. DALLAS에 근무하고 있는 사원들 중 가장 나중에 입사한 사원의 입사 날짜보다 더 먼저 입사한 
+-- 사원들의 사원번호, 이름, 입사일을 가져온다.
+SELECT
+    empno,
+    ename,
+    hiredate
+FROM
+    emp   e,
+    dept  d
+WHERE
+        e.deptno = d.deptno
+    AND loc = 'DALLAS'
+    AND hiredate < (
+        SELECT
+            MAX(hiredate)
+        FROM
+            emp
+    )

@@ -1,0 +1,116 @@
+-- emp 테이블의 구조를 조회.(특정명령문)
+desc bonus;
+
+--부서의 모든 정보를 가져온다.
+select *
+from dept;
+
+-- 각 사원들의 급여액과 급여액에서 1000을 더한 값, 200을 뺀 값, 2를 곱한 값, 2로 나눈 값을 가져온다.
+select sal, sal + 1000, sal - 200, sal * 2, sal / 2
+from emp;
+
+-- 각 사원의 급여액, 커미션, 급여 + 커미션 액수를 가져온다.
+select sal, nvl(comm, 0), sal + nvl(comm, 0)
+from emp;
+
+-- 사원들의 이름과 직무를 다음 양식으로 가져온다.
+-- 000 사원의 담당 직무는 XXX 입니다.
+select ename, job
+from emp;
+
+select ename || '사원의 담당 직무는 ' || job || '입니다'
+from emp;
+
+-- 사원들이 근무하고 있는 근무 부서의 번호를 가져온다.
+(근무하고 있는 부서번호이기 때문에 dept 테이블에 조회하지 않고 emp테이블에서 조회한다)
+(단, 부서번호는 중복으로 나오지않고 한번만 나온다.)
+select distinct deptno
+from emp;
+
+-- 급여가 1500이상인 사원들의 사원번호, 이름, 급여를 가져온다.
+select empno, ename, sal
+from emp
+where sal >= 1500;
+
+-- 직무가 SALESMAN인 사원의 사원번호, 이름, 직무를 가져온다.
+select empno, ename, job
+from emp
+where job = 'SALESMAN';
+
+-- 직무가 CLERK이 아닌 사원의 사원번호, 이름, 직무를 가져온다.
+select empno, ename, job
+from emp
+where job <> 'CLERK';
+
+-- 1982년 1월 1일 이후에 입사한 사원의 사원번호, 이름, 입사일을 가져온다.
+select empno, ename, hiredate
+from emp
+where hiredate >= '1982/01/01';
+
+-- 10번 부서에서 근무하고 있는 직무가 MANAGER인 사원의 사원번호, 이름, 근무부서, 직무를 가져온다.
+select empno, ename, deptno, job
+from emp
+where deptno=10 and job='MANAGER';
+
+-- 입사년도가 1981년인 사원중에 급여가 1500 이상인 사원의 사원번호, 이름, 급여, 입사일을 가져온다. ***
+select empno, ename, sal, hiredate
+from emp
+where hiredate >= '1981/01/01' and hiredate <= '1981/12/31' and sal >= 1500;
+
+select empno, ename, sal, hiredate
+from emp
+where hiredate between '1981/01/01' and '1981/12/31' and sal >= 1500;
+
+-- 급여가 2000보다 크거나 1000보다 작은 사원의 사원번호, 이름, 급여를 가져온다.
+select empno, ename, sal
+from emp
+where sal > 2000 or sal < 1000;
+
+select empno, ename, sal
+from emp
+where not(sal >= 1000 and sal <= 2000);
+
+select empno, ename, sal
+from emp
+where not(sal between 1000 and 2000);
+
+-- 직무가 CLERK, SALESMAN, ANALYST인 사원의 사원번호, 이름, 직무를 가져온다
+select empno, ename, job
+from emp
+where job = 'CLERK' or job = 'SALESMAN' or job = 'ANALYST';
+
+select empno, ename, job
+from emp
+where job in ('CLERK', 'SALESMAN', 'ANALYST');
+
+-- 사원 번호가 7499, 7566, 7839가 아닌 사원들의 사원번호, 이름을 가져온다.
+select empno, ename
+from emp
+where empno <> 7499 and empno <> 7566 and empno <> 7839;
+
+select empno, ename
+from emp
+where not(empno = 7499 or empno = 7566 or empno = 7839);
+
+select empno, ename
+from emp
+where not(empno in(7499, 7566, 7839));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

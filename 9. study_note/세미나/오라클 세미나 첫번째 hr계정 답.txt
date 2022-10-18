@@ -1,0 +1,135 @@
+-- 1. 각 도시(city)에 있는 모든 부서 직원들의 평균급여를 조회하고자 한다.
+--   평균급여가 가장 낮은 도시부터 도시명(city)과 평균연봉, 해당 도시의 직원수를 출력하시오.
+--   단, 도시에 근 무하는 직원이 10명 이상인 곳은 제외하고 조회하시오.
+
+SELECT l.CITY
+					,AVG(e.SALARY)
+          ,COUNT(*)
+FROM EMPLOYEES e
+				,DEPARTMENTS d
+        ,LOCATIONS l
+WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+ AND d.LOCATION_ID = l.LOCATION_ID
+GROUP BY l.CITY
+HAVING COUNT(*) < 10
+ORDER BY AVG(e.SALARY) ASC
+
+
+--2. 직책(Job Title)이 Sales Manager인 사원들의 입사년도와 입사년도(hire_date)별 평균 급여를 출력하시오.
+--   출력 시 년도를 기준으로 오름차순 정렬하시오.
+
+SELECT
+       TO_CHAR(e.HIRE_DATE, 'YYYY') AS HIRE_DATE
+       , AVG(e.salary) AS AVG
+  FROM EMPLOYEES e
+  				, JOBS j
+ WHERE e.JOB_ID = j.JOB_ID
+  AND j.JOB_TITLE = 'Sales Manager'
+ GROUP BY TO_CHAR(e.HIRE_DATE,'YYYY')
+ ORDER BY TO_CHAR(e.HIRE_DATE,'YYYY') ASC
+
+
+ --3. ‘Public  Accountant’의 직책(job_title)으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 출력하시오.
+--   (현재 ‘Public Accountant’의 직책(job_title)으로 근무하는 사원은 고려 하지 않는다.)
+--   이름은 first_name, last_name을 아래의 실행결과와 같이 출력한다.
+
+SELECT e.EMPLOYEE_ID
+				,CONCAT(CONCAT(e.FIRST_NAME,' '), e.LAST_NAME) name
+FROM EMPLOYEES e
+				,JOBS j
+        ,JOB_HISTORY h
+WHERE j.JOB_ID = h.JOB_ID
+ AND e.EMPLOYEE_ID = h.EMPLOYEE_ID
+ AND h.JOB_ID in (SELECT job_id FROM JOBS WHERE job_title = 'Public Accountant');
+
+------------------
+SELECT
+       e.EMPLOYEE_ID , CONCAT(CONCAT(e.FIRST_NAME,' '), e.LAST_NAME)
+  FROM EMPLOYEES e, JOBS j, JOB_HISTORY h
+ WHERE j.JOB_TITLE = 'Public Accountant'
+ 	AND h.JOB_ID = j.JOB_ID
+  AND e.EMPLOYEE_ID = h.EMPLOYEE_ID;
+
+
+--4. 1997년에 입사(hire_date)한 직원들의 사번(employee_id), 이름(first_name), 성(last_name),
+--   부서명(department_name)을 조회합니다.
+--   이때, 부서에 배치되지 않은 직원의 경우, ‘<Not Assigned>’로 출력하시오
+
+SELECT E.EMPLOYEE_ID
+				,E.FIRST_NAME
+        ,E.LAST_NAME
+        ,NVL(D.DEPARTMENT_NAME,'<NOT ASSIGNED>')
+FROM EMPLOYEES E
+				,DEPARTMENTS D
+WHERE TO_CHAR(E.HIRE_DATE, 'YYYY') = '1997'
+ AND E.DEPARTMENT_ID = D.DEPARTMENT_ID(+)
+ ORDER BY E.EMPLOYEE_ID ASC
+
+----------------------------
+ SELECT
+       e.EMPLOYEE_ID , e.LAST_NAME , e.FIRST_NAME , NVL(d.DEPARTMENT_NAME, '<Not Assigned>')
+  FROM EMPLOYEES e
+  LEFT JOIN DEPARTMENTS d
+  ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+  WHERE TO_CHAR(e.HIRE_DATE, 'YYYY') = '1997'
+  ORDER BY e.EMPLOYEE_ID ASC
+
+
+--5. 업무명(job_title)이 ‘Sales Representative’인 직원 중에서 연봉(salary)이 9,000이상, 10,000 이하인
+--   직원들의 이름(first_name), 성(last_name)과 연봉(salary)를 출력하시오
+
+SELECT e.FIRST_NAME
+					,e.LAST_NAME
+          ,e.SALARY
+FROM EMPLOYEES e
+				,JOBS j
+WHERE e.JOB_ID = j.JOB_ID
+ AND j.JOB_TITLE = 'Sales Representative'
+ AND e.SALARY >= 9000 AND e.SALARY <= 10000
+
+
+--6. 부서별로 가장 적은 급여를 받고 있는 직원의 이름, 부서이름, 급여를 출력하시오.
+--   이름은 last_name만 출력하며, 부서이름으로 오름차순 정렬하고,
+--   부서가 같은 경우 이름을 기준 으로 오름차순 정렬하여 출력합니다.
+
+SELECT e.LAST_NAME
+					,a.*
+FROM EMPLOYEES e
+				,(SELECT d.DEPARTMENT_NAME, min(e.SALARY) min_sal
+        	FROM EMPLOYEES e, DEPARTMENTS d
+          WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+          GROUP BY d.DEPARTMENT_NAME) a
+WHERE e.SALARY = a.min_sal
+ORDER BY a.department_name , e.LAST_NAME
+
+------------------------
+SELECT
+       E.LAST_NAME, A.*
+  FROM EMPLOYEES E,
+      (
+      SELECT
+             d.DEPARTMENT_NAME, MIN(e.SALARY) AS MIN_SALARY
+        FROM EMPLOYEES e, DEPARTMENTS d
+       WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+       GROUP BY d.DEPARTMENT_NAME
+      ) A
+ WHERE E.SALARY = A.MIN_SALARY
+ ORDER BY A.DEPARTMENT_NAME ASC, E.LAST_NAME ASC
+;
+
+
+--7. EMPLOYEES 테이블에서 급여를 많이 받는 순서대로 조회했을 때 결과처럼 6번째부터 10 번째까지
+--   5명의 last_name, first_name, salary를 조회하는 sql문장을 작성하시오.
+--****어려운 문제****--
+
+SELECT  *
+  FROM
+       (
+       SELECT
+               RANK() OVER (ORDER BY TRUNC(SALARY, -1) DESC) AS RANKING, LAST_NAME,
+               FIRST_NAME, TRUNC(SALARY, -1) AS SALARY
+          FROM EMPLOYEES
+         ORDER BY SALARY DESC
+       )
+  WHERE RANKING
+  BETWEEN 6 AND 10 ;

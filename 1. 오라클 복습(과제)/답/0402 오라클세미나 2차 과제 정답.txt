@@ -1,0 +1,122 @@
+-- 1. 이름이 S로 끝나는 사원의 이름과 사원 번호를 가져온다.
+select ename, empno
+from emp
+where ename like '%S';
+
+-- 2. 이름에 A가 포함되어 있는 사원의 이름과 사원 번호를 가져온다.
+select ename, empno
+from emp
+where ename like '%A%';
+
+-- 3. 이름의 두번째 글자가 A인 사원의 사원 이름, 사원 번호를 가져온다.
+select ename, empno
+from emp
+where ename like '_A%';
+
+-- 4. 사원중에 커미션을 받지 않는 사원의 사원번호, 이름, 커미션을 가져온다.
+select empno, ename, comm
+from emp
+where comm is null;
+
+select empno, ename, comm
+from emp
+where comm is not null;
+
+-- 5. 1981년에 입사한 사원들의 사원번호, 사원 이름, 입사일을 가져온다. 사원 번호를 기준으로 내림차순 정렬을 한다.
+select empno, ename, hiredate
+from emp
+where hiredate between '1981/01/01' and '1981/12/31'
+order by empno desc;
+
+-- 6. 급여가 1500 이상인 사원의 급여를 15% 삭감한다. 단 소수점 이하는 버린다.
+select sal, sal * 0.85, floor(sal * 0.85)
+from emp
+where sal >= 1500;
+
+-- 7. 급여가 2천 이하인 사원들의 급여를 20%씩 인상한다. 단 10의 자리를 기준으로 반올림한다.
+select sal, sal * 1.2, round(sal * 1.2, -2)
+from emp
+where sal <= 2000;
+
+-- 8. 사원들의 이름을 소문자로 가져온다.
+select ename, lower(ename)
+from emp;
+
+-- 9. 사원의 이름 중에 A라는 글자가 두번째 이후에 나타나는 사원의 이름을 가져온다.***
+select ename
+from emp
+where instr(ename, 'A') > 1;
+
+-- 10. 사원 이름을 앞에 3자리만 출력한다.
+
+-- 11. 직무가 SALESMAN인 사원의 입사일 100일전 날짜를 가져온다.
+select hiredate, hiredate - 100
+from emp
+where job = 'SALESMAN';
+
+-- 12. 전 사원의 근무 일을 가져온다.
+select trunc(sysdate - hiredate)
+from emp;
+
+-- 13. 모든 사원이 근무한 개월 수를 구한다.
+select trunc(months_between(sysdate, hiredate))
+from emp;
+
+-- 14. 다음달의 마지막 날짜를 구한다.
+select sysdate, last_day(sysdate) from dual;
+
+-- 15. 사원이름, 입사일을 구한다. 단, 사원들의 입사일을 다음과 같은 양식으로 가져온다.
+-- 81.10.10
+
+-- 16. 각 사원의이름과 부서 이름을 가져온다.
+-- 부서이름은 번호별로 한글이름이 표시되게 (10='인사과', 20='개발부', 30='경원지원팀', 40='생산부')
+
+select empno, ename, 
+       decode(deptno, 10, '인사과', 
+                      20, '개발부', 
+                      30, '경영지원팀', 
+                      40, '생산부')
+from emp;
+
+-- 17. 사원번호, 사원이름, 급여액 별 등급을 가져온다.
+-- 1000 미만 : C등급
+-- 1000 이상 2000미만 : B등급
+-- 2000 이상 : A등급
+select empno, ename,
+       case when sal < 1000 then 'C등급'
+            when sal >= 1000 and sal < 2000 then 'B등급'
+            when sal >= 2000 then 'A등급'
+       end
+from emp;
+
+
+-- 18. 급여가 1500 이상인 사원들의 급여 총합을 구한다.
+select sum(sal)
+from emp
+where sal >= 1500;
+
+-- 19. 커미션을 받는 사원들의 커미션 평균을 구한다.**?
+select trunc(avg(comm))
+from emp;
+
+-- 20. 전 사원의 커미션의 평균을 구한다.
+select trunc(avg(nvl(comm, 0)))
+from emp;
+
+-- 21. 사원들의 급여 최대, 최소값을 가져온다.
+select max(sal), min(sal)
+from emp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

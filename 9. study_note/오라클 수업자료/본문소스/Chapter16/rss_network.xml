@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<rss version="2.0">
+<channel>
+<title>한빛미디어(주) | 한빛 네트워크</title>
+<link>http://network.hanb.co.kr</link>
+<description>한빛 네트워크에서 제공하는 IT 전문 기사입니다.</description>
+<language>ko</language>
+<pubDate>Thu, 27 Sep 2007 18:10:01 +0900</pubDate>
+<item>
+<title>[프로그래밍] JavaFX 스크립트 소개(1)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1448</link>
+<description><![CDATA[ JavaFX의 핵심 컴포넌트는 선언형 언어인 JavaFX 스크립트(Script)이며, 코드 스타일은 자바와 상당히 다르지만 자바 클래스와 상호 작용하는 능력은 뛰어나다. 수 많은 JavaFX 스크립트 클래스들은 스윙이나 자바 2D 기능들을 손쉽게 구현할 수 있도록 설계되었다. 단지 몇 줄의 코드만으로 GUI와 애니메이션을 보여주거나 텍스트와 그래프에 화려한 효과를 넣을 수 있다. 또 다른 기능으로, JavaFX 스크립트에 자바와 HTML 코드를 넣을 수도 있다. ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Thu, 27 Sep 2007 11:02:13 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 데비안에서 User Mode Linux 사용하기</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1447</link>
+<description><![CDATA[ 사용자 모드 리눅스(User Mode Linux, UML)는 리눅스 커널을 하나의 프로세스로 실행하는 것을 말합니다. 그렇지만 UML은 단순히 프로그램을 실행하는 것과는 다릅니다. VMware 같은 가상 머신 소프트웨어를 이용해서 리눅스를 실행하는 것과 같습니다. 차이점은 VMware 같은 에뮬레이션 환경이 아닌 하나의 프로세스로 실행한다는 점이 다릅니다. ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Wed, 19 Sep 2007 15:45:50 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 커널에서 CPU 정보 처리하기</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1446</link>
+<description><![CDATA[ cat /proc/cpuinfo 명령을 사용하면 CPU 정보를 볼 수 있습니다. ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Tue, 18 Sep 2007 11:25:48 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] 고급 자바스크립트 활용 II</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1445</link>
+<description><![CDATA[ 이 기사에서는 또 다른 유용한 자바스크립트 위젯을 계속해서 소개해볼 텐데, 실제로 위젯이 어떻게 동작하는 지에 대해 집중적으로 살펴봄으로써 여러분이 그것들을 필요한 대로 손쉽게 수정할 수 있게 할 것이다. 이 기사에서 사용된 자바스크립트는 수정할 필요 없이 현재 사용되고 있는 주요 브라우저에서 모두 동작해야 한다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Mon, 17 Sep 2007 14:24:30 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 왜 네트워크 디바이스 노드는 없을까?</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1444</link>
+<description><![CDATA[ 리눅스 커널을 보면 디바이스 종류는 크게 3가지로 나뉜다. 문자 디바이스, 블록 디바이스, 네트워크 디바이스. 네트워크 디바이스는 /dev 밑에 파일로 존재하지 않는 특별한 형태로 되어 있다. ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Mon, 17 Sep 2007 14:19:14 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 리눅스 커널의 시간 보정</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1443</link>
+<description><![CDATA[ 시스템에 있는 모든 CPU가 동시에 타이머 인터럽트를 발생시키는 것을 막기 위해 각각의 CPU에서 타이머 인터럽트는 약간의 시간지연을 두고 발생하게 되어 있습니다. ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Fri, 14 Sep 2007 11:49:30 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 리눅스 커널 락을 없애려는 시도들</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1442</link>
+<description><![CDATA[ 커널의 잠금을 제거하고, 수행성능을 최적화하기 위한 시도는 커널 2.4에서 2.6으로 넘어가는 동안에도 이뤄졌다. ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Thu, 13 Sep 2007 14:23:58 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] 파이썬으로 재귀하향 파서 만들기(2)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1440</link>
+<description><![CDATA[ Pyparisng은 재귀하향 파서를 만드는 기본적인 프레임 워크를 제공한다. 입력 문자열 스캐닝의 오버헤드 기능에 주의, 일치하는 않는 표현식 처리, 일치하는 것 중 가장 긴 것 선택하기, 콜백함수 호출, 그리고 파싱된 결과를 리턴하는 것이 이 파서의 내용에 속한다. 이로 인해 개발자는 문법 디자인과  이에 대응하는 토큰 처리 구현에만 집중할 수 있다.조합자로서의 pyparsing의 특징으로 인해 개발자는 응용프로그램을 간단한 토큰화 프로그램에서 복잡한 문법 처리기로 확장할 수 있다. 당신의 다음 파싱 프로젝트로 이를 활용하는 것은 아주 훌륭한 방법이다. ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Tue, 11 Sep 2007 10:36:44 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] 파이썬으로 재귀하향 파서 만들기(1)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1439</link>
+<description><![CDATA[ 파싱이란 무엇인가? 파싱이란 의미를 추출하기 위해 일련의 심벌을 처리하는 것을 말한다. 전형적으로 이것은 문장에서 단어를 읽어 이로부터 의미를 끌어내는 것을 의미한다. 응용프로그램이 텍스트로 된 데이터를 처리해야 할 때 파싱로직 형태의 뭔가를 사용해야 한다. 이 로직은 텍스트 문자와 문자 그룹(단어)를 스캔하며 정보나 명령을 추출하기 위해  문자 그룹을 인지한다. ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Mon, 10 Sep 2007 12:29:28 +0900</pubDate>
+</item>
+<item>
+<title>[네트워크/보안] DHCP 구현과 이해</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1435</link>
+<description><![CDATA[ 당신이 이미 알고 있는 것처럼 네트워크 상에서 통신하는 모든 컴퓨터는 IP주소를 사용하여 통신한다. DHCP의 목적은 관리자가 수동으로 IP주소를 타이핑하지 않고 모든 컴퓨터에 IP주소를 전달해 주는 자동화된 메커니즘을 제공한다. 작은 네트워크에서 이것은 그리 큰 문제가 되지 않는다. 그러나 수십, 수백, 수천개의 컴퓨터로 이루어진 네트워크에서 IP주소 관리는 그리 만만한 일이 아니다. 다행히도 윈도우 서버 2003은 자신의 DHCP서버 서비스로 DHCP를 구현하는 방법을 제공한다. ]]></description>
+<category>네트워크/보안</category>
+<author>한빛미디어</author>
+<pubDate>Fri, 07 Sep 2007 14:18:54 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] PHP를 이용한 웹 서비스 개발(3)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1434</link>
+<description><![CDATA[ PHP XML-RPC 확장은 XML-RPC 명세의 PHP 구현체이다. XML-RPC PHP 클래스 라이브러리는 XML-RPC 서버를 만들고 서버의 메소드를 호출할 수 있는 함수들을 제공한다. 몇가지 널리 사용되는 XML-RPC 함수들이 표 4에 나열되어 있다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Wed, 05 Sep 2007 11:08:19 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] PHP를 이용한 웹 서비스 개발(2)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1433</link>
+<description><![CDATA[ soap-client.php라는 PHP 스크립트를 C:Apache2htdocs 디렉터리에 만든다. PHP 스크립트에는 SoapClient 클래스를 이용하여 SOAP 클라이언트를 만든다. SoapClient 생성자의 인자로서 WSDL 문서인 catalog.wsdl을 지정한다. WSDL 문서는 SOAP 클라이언트에서 사용할 수 있는 오퍼레이션들이 기술되어 있다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Tue, 04 Sep 2007 10:39:10 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] PHP를 이용한 웹 서비스 개발(1)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1432</link>
+<description><![CDATA[ 웹 서비스는 웹 서비스에 대한 요청(request)을 처리하는 서버와 웹 서비스상의 메소드를 호출하는 클라이언트로 구성되어 있다. PHP 클래스 라이브러리는 XML-RPC 서버와 클라이언트를 만들기 위해 SOAP 서버와 클라이언트 및 XML-RPC 확장기능을 개발하기 위한 SOAP 확장을 제공하고 있다. PHP를 이용하여 웹 서비스를 개발하는 것에 대해 깊게 파고들기 전에 웹 서비스에 대해 간략하게 설명하도록 하겠다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Mon, 03 Sep 2007 11:18:52 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] Cooking with Ruby on Rails - Designing for Testability(4)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1431</link>
+<description><![CDATA[ Cooking with Ruby on Rails - Designing for Testability(4) ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Fri, 31 Aug 2007 09:39:40 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] Cooking with Ruby on Rails - Designing for Testability(3)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1430</link>
+<description><![CDATA[ Cooking with Ruby on Rails - Designing for Testability(3) ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Thu, 30 Aug 2007 11:20:34 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] Cooking with Ruby on Rails - Designing for Testability (2)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1429</link>
+<description><![CDATA[ Cooking with Ruby on Rails - Designing for Testability (2) ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Wed, 29 Aug 2007 10:57:23 +0900</pubDate>
+</item>
+<item>
+<title>[프로그래밍] Cooking with Ruby on Rails - Designing for Testability (1)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1428</link>
+<description><![CDATA[ Cooking with Ruby on Rails - Designing for Testability(1) ]]></description>
+<category>프로그래밍</category>
+<author>한빛미디어</author>
+<pubDate>Mon, 27 Aug 2007 16:25:51 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] 고급 자바스크립트 활용Ⅰ-Ⅱ</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1427</link>
+<description><![CDATA[ 이 글과 두개의 예제는 단지 몇 줄의 자바스크립트로 할 수 있는 것들의 맛보기에 지나지 않는다. 그리고 자바스크립트 툴킷 내부에 정말로 엄청나게 큰 마법이 작용하는 것도 아님을 보여준다. 비록 가끔은 트릭을 사용하지만, 보통은 모든 주요 브라우저에서 작동하는 함수를 만들수 있게 하고 추가적인 노력은 거의 안들게 한다는데에 거의 항상 가치가 있다. 좀더 자세한 자바스크립트 위젯 예제는 다음의 기사에서 알아보도록 하겠다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Fri, 24 Aug 2007 12:10:57 +0900</pubDate>
+</item>
+<item>
+<title>[웹 프로그래밍/관리] 고급 자바스크립트 활용Ⅰ-Ⅰ</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1426</link>
+<description><![CDATA[ 웹 브라우저는 처음에는 사용자들에게 단순히 마크업을 만족스러운 방법으로 보여주는데 유용했지만, 지금은 놀라울 정도로 복잡한 소프트웨어 인터페이스로서 실행될 수 있을 정도로 발전해왔고 C/C++과 다른 고수준 언어들로 쓰여진 소프트웨어들과도 견줄만 하다. 이것은 대체로 자바스크립트 지원과 웹 2.0기술 덕택이다. ]]></description>
+<category>웹 프로그래밍/관리</category>
+<author>한빛미디어</author>
+<pubDate>Thu, 23 Aug 2007 12:26:25 +0900</pubDate>
+</item>
+<item>
+<title>[리눅스/유닉스] 리눅스 디바이스 드라이버 심플 소개(2)</title>
+<link>http://network.hanb.co.kr/view.php?bi_id=1425</link>
+<description><![CDATA[ 태초때부터 컴퓨터 언어를 배울때 제일 처음 만들었던 프로그램은 &quot;Hello, World!&quot;를 출력하는 프로그램이었습니다.(Hello World 모음 을 보면 300개가 넘는 각 언어로 만들어진 &quot;Hello, World!&quot; 프로그램을 볼 수 있어요). 이번 글에서도 마찬가지로 Hello, World를 시작으로 간단한 리눅스 커널 모듈을 만드는 방법을 배워보도록 할께요. 다음과 같은 총 3가지 방법을 이용해서 배워볼 거예요. printk(), /proc, /dev ]]></description>
+<category>리눅스/유닉스</category>
+<author>한빛미디어</author>
+<pubDate>Tue, 21 Aug 2007 11:09:52 +0900</pubDate>
+</item>
+</channel>
+</rss>

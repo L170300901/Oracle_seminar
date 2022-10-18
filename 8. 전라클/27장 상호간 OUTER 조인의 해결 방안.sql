@@ -1,0 +1,59 @@
+SELECT * FROM TEST30;
+SELECT * FROM TEST31;
+SELECT * FROM TEST32;
+SELECT * FROM TEST33;
+
+
+--p516 따라하기 (1) 자체 풀이
+/* TEST31 ~ TEST33 UNION 시 AMT1 , AMT2, AMT3 는 모두 AMT1 으로 출력됨
+   각각 어느 테이블에 있었는지 구분하기 위해 KEY 필드 추가
+*/
+SELECT T1.YM, T1.KEY1, T2.AMT,
+        SUM( ( CASE WHEN T1.KEY=1 THEN T1.AMT1 END ) ) AMT1, 
+        SUM( ( CASE WHEN T1.KEY=2 THEN T1.AMT1 END ) ) AMT2,
+        SUM( ( CASE WHEN T1.KEY=3 THEN T1.AMT1 END ) ) AMT3 
+FROM
+    ( SELECT '1' AS KEY, KEY1, YM, AMT1 FROM TEST31
+      UNION ALL
+      SELECT '2' AS KEY, KEY1, YM, AMT2 FROM TEST32
+      UNION ALL
+      SELECT '3' AS KEY , KEY1, YM, AMT3 FROM TEST33 ) T1, 
+      TEST30 T2
+WHERE T1.KEY1 = T2.KEY1  -- 결과만 출력되려면 굳이 OUTER 조인은 할 필요 없는 듯?
+GROUP BY T1.YM, T1.KEY1, T2.AMT
+ORDER BY T1.YM, T1.KEY1;
+/*  책에는 UNION ALL 대신 UNION 으로 되어있지만
+  중복되는 자료는 어차피 GROUP BY 에서 묶여지게 되는 듯..
+  UNION 이나 UNION ALL 이나 결과는 동일하게 출력된다  */
+
+
+--p516 따라하기 (2) : 책의 풀이  
+SELECT KEY1, YM FROM TEST31
+UNION 
+SELECT KEY1, YM FROM TEST32
+UNION 
+SELECT KEY1, YM FROM TEST33;  --중복 자료 제거 위해 반드시 UNION 사용 : 총 15행 출력
+
+SELECT A.YM, A.KEY1, B.AMT, C.AMT1, D.AMT2, E.AMT3
+FROM 
+  ( SELECT KEY1, YM FROM TEST31
+    UNION
+    SELECT KEY1, YM FROM TEST32
+    UNION 
+    SELECT KEY1, YM FROM TEST33 ) A, -- 이 경우는 반드시 UNION 을 써서 중복 데이터를 빼야 함
+    TEST30 B, TEST31 C, TEST32 D, TEST33 E
+WHERE A.KEY1 = B.KEY1 (+)   -- UNION 자료와 TEST30 의 AMT 을 KEY1 으로 아우터 조인
+   AND A.KEY1 = C.KEY1 (+) AND A.YM = C.YM (+)  -- UNION 자료와 TEST31 의 AMT1 을 KEY1 과 YM 으로 아우터 조인
+   AND A.KEY1 = D.KEY1 (+) AND A.YM = D.YM (+)  -- UNION 자료와 TEST32 의 AMT2 를 KEY1 과 YM 으로 아우터 조인
+   AND A.KEY1 = E.KEY1 (+) AND A.YM = E.YM (+)  -- UNION 자료와 TEST33 의 AMT3 를 KEY1 과 YM 으로 아우터 조인
+ORDER BY YM, KEY1;
+
+--p518 문제 27-1 : 여러 테이블의 OUTER JOIN
+SELECT A.KEY1 AS KEY, A.AMT, B.YM AS AMT1_YM, B.AMT1 ,
+         C.YM AS AMT2_YM, C.AMT2, D.YM AS AMT3_YM, D.AMT3
+FROM TEST30 A, TEST31 B, TEST32 C, TEST33 D
+WHERE A.KEY1 = B.KEY1 (+) 
+   AND A.KEY1 = C.KEY1 (+) 
+   AND A.KEY1 = D.KEY1 (+);
+
+

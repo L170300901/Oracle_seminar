@@ -1,0 +1,83 @@
+-- 1. 각 부서별 사원들의 급여 평균을 구한다.
+select deptno, avg(sal)
+from emp
+group by deptno;
+
+-- 2. 1500 이상 급여를 받는 사원들의 부서별 급여 평균을 구한다.
+select deptno, avg(sal)
+from emp
+where sal >= 1500
+group by deptno;
+
+-- 3. 부서별 평균 급여가 2000이상인 부서의 급여 평균을 가져온다.
+select deptno, avg(sal)
+from emp
+group by deptno
+having avg(sal) >= 2000;
+
+-- 4. 부서별 최대 급여액이 3000이하인 부서의 급여 총합을 가져온다.
+select sum(sal)
+from emp
+group by deptno
+having max(sal) <= 3000;
+
+-- 5. 부서별 최소 급여액이 1000 이하인 부서에서 직무가 CLERK인 사원들의 급여 총합을 구한다.
+select sum(sal)
+from emp
+where job = 'CLERK'
+group by deptno
+having min(sal) <= 1000;
+
+-- 6. 각 부서의 급여 최소가 900이상 최대가 10000이하인 부서의 사원들 중 1500이상의 
+-- 급여를 받는 사원들의 평균 급여액을 가져온다.
+select avg(sal)
+from emp
+where sal >= 1500
+group by deptno
+having min(sal) >= 900 and max(sal) <= 10000;
+
+-- 7. 사원의 사원번호, 이름, 근무지역을 가져온다.
+select a1.empno, a1.ename, a2.loc
+from emp a1, dept a2
+where a1.deptno = a2.deptno;
+
+-- 8. DALLAS에 근무하고 있는 사원들의 사원번호, 이름, 직무를 가져온다.
+select a1.empno, a1.ename, a1.job
+from emp a1, dept a2
+where a1.deptno = a2.deptno and a2.loc = 'DALLAS';
+
+-- 9. SALES 부서에 근무하고 있는 사원들의 급여 평균을 가져온다.
+select avg(sal)
+from emp a1, dept a2
+where a1.deptno = a2.deptno and a2.dname='SALES';
+
+-- 10. 각 사원들의 사원번호, 이름, 급여, 급여등급을 가져온다.
+select a1.empno, a1.ename, a1.sal, a2.grade
+from emp a1, salgrade a2
+where a1.sal between a2.losal and a2.hisal;
+
+-- 11. SALES 부서에 근무하고 있는 사원의 사원번호, 이름, 급여등급을 가져온다.
+select a1.empno, a1.ename, a2.grade
+from emp a1, salgrade a2, dept a3
+where a1.sal between a2.losal and a2.hisal and a1.deptno = a3.deptno
+      and a3.dname = 'SALES';
+
+-- 12. 각 급여 등급별 급여의 총합과 평균, 사원의수, 최대급여, 최소급여를 가져온다.
+select sum(a1.sal), trunc(avg(a1.sal)), count(a1.sal), max(a1.sal), min(a1.sal)
+from emp a1, salgrade a2
+where a1.sal between a2.losal and a2.hisal
+group by a2.grade;
+
+-- 13. 급여 등급이 4등급인 사원들의 사원번호, 이름, 급여, 근무부서이름, 근무지역을 가져온다.
+select a1.empno, a1.ename, a1.sal, a3.dname, a3.loc
+from emp a1, salgrade a2, dept a3
+where a1.sal between a2.losal and a2.hisal and a1.deptno=a3.deptno
+      and a2.grade = 4;
+
+
+
+
+
+
+
+
